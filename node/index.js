@@ -1,11 +1,15 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 const port = 3000;
 
+app.use(bodyParser.json())
+app.get('/handlesum',handleFirstRequest);
+
 function calculateSum(n){
     var sum  = 0;
-    for(var i = 0;i<n;i++){
+    for(var i = 0;i<=n;i++){
         sum+=i;
     }
     return sum;
@@ -14,18 +18,11 @@ function calculateSum(n){
 function handleFirstRequest(req,res){
     var counter = req.query.counter;
     var answer =calculateSum(counter);
-    console.log(counter);
-    var result = "The sum is " + answer;
-
+    var result = {
+        sum: answer
+    };
     res.send(result);
 }
-
-function createUser(req,res){
-    res.send("Hello world")
-}
-
-app.get('/handlesum',handleFirstRequest);
-app.post('/handlesum2',createUser);
 
 app.listen(port,()=>{
     console.log('Example app listening on port ' + port);
