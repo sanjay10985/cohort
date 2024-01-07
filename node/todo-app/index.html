@@ -8,11 +8,20 @@
 <body>
     Todo Title
     <input type="text" id="title">
+    <br>
     Todo Description
-    <input type="text" id="text">
+    <input type="text" id="description">
+    <br>
     <button onclick="onPress()">Send todo</button>
 </body>
 <script>
-    
+function onPress(){
+    var title = document.getElementById("title").value;
+    fetch("http://localhost:3000/todos",{
+        method: "GET",
+    }).then((res) => {
+        res.json().then((data) => {alert(data); console.log(data)})
+    })
+}
 </script>
 </html>
